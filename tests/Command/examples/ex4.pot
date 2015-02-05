@@ -1,0 +1,28 @@
+#: examples/ex4.cmd
+msgid "Hello from ex4.cmd"
+msgstr ""
+
+#: examples/ex4.cmd examples/ex4.cmd2 examples/ex4.install examples/ex4.js examples/ex4.module examples/ex4.tpl
+msgid "How do you do?"
+msgstr ""
+
+#: examples/ex4.cmd2
+msgid "Hello from ex4.cmd2"
+msgstr ""
+
+#: examples/ex4.install
+msgid "Hello from ex4.install"
+msgstr ""
+
+#: examples/ex4.js
+msgid "Hello from ex4.js"
+msgstr ""
+
+#: examples/ex4.module
+msgid "Hello from ex4.module"
+msgstr ""
+
+#: examples/ex4.tpl
+msgid "Hello from ex4.tpl"
+msgstr ""
+

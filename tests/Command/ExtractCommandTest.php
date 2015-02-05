@@ -16,25 +16,27 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function examples() {
-    $cases = array(); // array(string $inputFile, string $expectedOutputFile)
-    $cases[] = array(__DIR__, "examples/ex1.php", "examples/ex1.pot");
-    $cases[] = array(__DIR__, "examples/ex2.js", "examples/ex2.pot");
-    $cases[] = array(__DIR__, "examples/ex3.tpl", "examples/ex3.pot");
+    $cases = array(); // array(array $inputFiles, string $expectedOutputFile)
+
+    $cases[] = array(__DIR__, array("examples/ex1.php"), "examples/ex1.pot");
+    $cases[] = array(__DIR__, array("examples/ex2.js"), "examples/ex2.pot");
+    $cases[] = array(__DIR__, array("examples/ex3.tpl"), "examples/ex3.pot");
+    $cases[] = array(__DIR__, array("examples/ex4.cmd", "examples/ex4.install", "examples/ex4.module", "examples/ex4.tpl", "examples/ex4.js", "examples/ex4.cmd2",), "examples/ex4.pot");
 
     return $cases;
   }
 
   /**
-   * @param string $inputFile
+   * @param array $inputFiles
    * @param string $expectedOutputFile
    * @dataProvider examples
    */
-  public function testExecute($baseDir, $inputFile, $expectedOutputFile) {
+  public function testExecute($baseDir, $inputFiles, $expectedOutputFile) {
     chdir($baseDir);
     $commandTester = $this->createCommandTester(new ExtractCommand());
     $commandTester->execute(array(
       'command' => self::COMMAND,
-      'files' => array($inputFile),
+      'files' => $inputFiles,
     ));
     $expectedOutput = file_get_contents($expectedOutputFile);
     $this->assertEquals($expectedOutput, $commandTester->getDisplay());

@@ -1,0 +1,4 @@
+<?php
+
+echo ts('Hello from ex4.module');
+echo ts('How do you do?');

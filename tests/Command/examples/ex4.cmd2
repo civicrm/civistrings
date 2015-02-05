@@ -1,0 +1,4 @@
+#!/usr/bin/php
+<?php
+echo ts('Hello from ex4.cmd2');
+echo ts('How do you do?');
