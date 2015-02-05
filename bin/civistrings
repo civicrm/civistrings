@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+set_time_limit(0);
+$found = 0;
+$autoloaders = array(
+  dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php',
+  dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'autoload.php'
+);
+foreach ($autoloaders as $autoloader) {
+  if (file_exists($autoloader)) {
+    require_once $autoloader;
+    $found = 1;
+    break;
+  }
+}
+if (!$found) {
+  die("Failed to find autoloader");
+}
+\Civi\Strings\Application::main(__DIR__);

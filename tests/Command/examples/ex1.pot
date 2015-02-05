@@ -1,0 +1,54 @@
+#: examples/ex1.php
+msgid "Test string 1"
+msgstr ""
+
+#: examples/ex1.php
+msgid "Test string 3"
+msgstr ""
+
+#: examples/ex1.php
+msgid "Special\ncharacters"
+msgstr ""
+
+#: examples/ex1.php
+msgid "Special\\ncharacters"
+msgstr ""
+
+#: examples/ex1.php
+msgid "Embedded $variable"
+msgstr ""
+
+#: examples/ex1.php
+msgid "more $special characters"
+msgstr ""
+
+#: examples/ex1.php
+msgid "even more \\$special characters"
+msgstr ""
+
+#: examples/ex1.php
+msgid "Mixed 'quote' \"marks\""
+msgstr ""
+
+#: examples/ex1.php
+msgid "Mixed \"quote\" 'marks'"
+msgstr ""
+
+#: examples/ex1.php
+msgid "This is some repeating text"
+msgstr ""
+
+#: examples/ex1.php
+msgid "a test with a %1 variable, and %2 another one"
+msgstr ""
+
+#: examples/ex1.php
+msgid "%3 – a plural test, %count frog"
+msgid_plural "a plural test, %count frogs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: examples/ex1.php
+msgid "a test for multitoken element value"
+msgstr ""
+

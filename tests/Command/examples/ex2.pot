@@ -1,0 +1,28 @@
+#: examples/ex2.js
+msgid "First"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Second"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Third"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Fourth"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Fifth"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Sixth"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Embedded ts(\'example\')"
+msgstr ""
+
