@@ -55,10 +55,10 @@ class JsParser {
    * Rips gettext strings from $file and prints them in C format.
    *
    * @param string $file
+   * @param string $content
    * @param Pot $pot
    */
-  public function parse($file, $pot) {
-    $content = @file_get_contents($file);
+  public function parse($file, $content, $pot) {
     if (empty($content)) {
       return;
     }

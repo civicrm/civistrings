@@ -61,33 +61,47 @@ class ExtractCommand extends Command {
         $this->extractFiles($input, $output, $children);
       }
       elseif (file_exists($path)) {
-        $this->extractFile($input, $output, $path);
+        $this->extractFile($path);
       }
     }
   }
 
   /**
-   * @param InputInterface $input
-   * @param OutputInterface $output
-   * @param string $path
+   * @param string $file
    */
-  protected function extractFile(InputInterface $input, OutputInterface $output, $path) {
-    $path = realpath($path);
+  protected function extractFile($file) {
+    $content = @file_get_contents($file);
 
-    if (preg_match('/\.js$/', $path)) {
-      $parser = 'js';
-    }
-    elseif (preg_match('/\.php$/', $path)) {
-      $parser = 'php';
-    }
-    elseif (preg_match('/\.tpl$/', $path)) {
-      $parser = 'smarty';
-    }
-    else {
+    $parser = $this->pickParser($file, $content);
+    if (!$parser) {
       return;
     }
-    $this->parsers[$parser]->parse($path, $this->pot);
 
+    $parser->parse($file, $content, $this->pot);
+  }
+
+  /**
+   * @param string $file
+   * @param string $content
+   * @return Object|NULL
+   */
+  protected function pickParser($file, $content) {
+    $file = realpath($file);
+
+    if (preg_match('/~$/', $file)) {
+      // skip
+    }
+    elseif (preg_match('/\.js$/', $file)) {
+      $parser = 'js';
+    }
+    elseif (preg_match('/\.tpl$/', $file)) {
+      $parser = 'smarty';
+    }
+    elseif (preg_match('/\.php$/', $file) || preg_match(':^<\?php:', $content) || preg_match(':^#![^\n]+php:', $content)) {
+      $parser = 'php';
+    }
+
+    return $parser ? $this->parsers[$parser] : NULL;
   }
 
 }

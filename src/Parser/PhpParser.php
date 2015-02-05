@@ -33,11 +33,10 @@ class PhpParser {
 
   /**
    * @param string $file
+   * @param string $code
    * @param Pot $pot
    */
-  public function parse($file, Pot $pot) {
-    $code = file_get_contents($file);
-
+  public function parse($file, $code, Pot $pot) {
     // Extract raw tokens
     $raw_tokens = token_get_all($code);
 
