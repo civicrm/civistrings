@@ -3,6 +3,7 @@ namespace Civi\Strings\Command;
 
 use Civi\Strings\Parser\JsParser;
 use Civi\Strings\Parser\PhpParser;
+use Civi\Strings\Parser\SmartyParser;
 use Civi\Strings\Pot;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,6 +30,7 @@ class ExtractCommand extends Command {
     $this->parsers = array();
     $this->parsers['js'] = new JsParser();
     $this->parsers['php'] = new PhpParser();
+    $this->parsers['smarty'] = new SmartyParser();
   }
 
   protected function execute(InputInterface $input, OutputInterface $output) {
@@ -77,7 +79,11 @@ class ExtractCommand extends Command {
     }
     elseif (preg_match('/\.php$/', $path)) {
       $parser = 'php';
-    } else {
+    }
+    elseif (preg_match('/\.tpl$/', $path)) {
+      $parser = 'smarty';
+    }
+    else {
       return;
     }
     $this->parsers[$parser]->parse($path, $this->pot);

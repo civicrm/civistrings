@@ -1,0 +1,22 @@
+#: examples/ex3.tpl
+msgid "First"
+msgstr ""
+
+#: examples/ex3.tpl
+msgid "Second"
+msgstr ""
+
+#: examples/ex3.tpl
+msgid "You can <a href='%1'>create one here</a>."
+msgstr ""
+
+#: examples/ex3.tpl
+msgid "<strong>Contact Signup Forms</strong> - Create link(s) to 'new contact' input form(s) for your Profiles using the following path: <em>%1/%2</em>. (This example links to an input form for Profile ID 3.)"
+msgstr ""
+
+#: examples/ex3.tpl
+msgid "CiviCRM has detected mismatched membership ID. This record has not been updated."
+msgid_plural "CiviCRM has detected mismatched membership IDs. These records have not been Updated."
+msgstr[0] ""
+msgstr[1] ""
+
