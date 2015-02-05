@@ -23,7 +23,7 @@ class ExtractCommand extends Command {
       ->setDescription('Extract strings from the given files')
       ->setHelp('Compare the commits/revisions in different source trees')
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings')
-      ->addOption('base', NULL, InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()));
+      ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()));
   }
 
   protected function initialize(InputInterface $input, OutputInterface $output) {
