@@ -6,6 +6,7 @@ use Civi\Strings\Parser\PhpParser;
 use Civi\Strings\Parser\SmartyParser;
 use Civi\Strings\Pot;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -45,7 +46,8 @@ class ExtractCommand extends Command {
       ->setDescription('Extract strings')
       ->setHelp('Extract files any mix of PHP, Smarty, JS, HTML files.')
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings. Use "-" to accept file names from STDIN')
-      ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()));
+      ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()))
+      ->addOption('out', 'o', InputOption::VALUE_REQUIRED, 'Output file. (Default: stdout)');
   }
 
   protected function initialize(InputInterface $input, OutputInterface $output) {
@@ -57,7 +59,7 @@ class ExtractCommand extends Command {
   }
 
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $this->pot = new Pot();
+    $this->pot = new Pot($input->getOption('base'));
 
     $files = $input->getArgument('files');
 
@@ -68,11 +70,30 @@ class ExtractCommand extends Command {
       );
     }
 
-    $this->extractFiles($input, $output, $files);
-    $this->pot->printAll($input, $output);
+    $actualFiles = $this->findFiles($files);
+
+    if (!$input->getOption('out')) {
+      foreach ($actualFiles as $file) {
+        $this->extractFile($file);
+      }
+      $output->write($this->pot->toString($input));
+    }
+    else {
+      $progress = new ProgressHelper();
+      $progress->start($output, 1 + count($actualFiles));
+      $progress->advance();
+      foreach ($actualFiles as $file) {
+        $this->extractFile($file);
+        $progress->advance();
+      }
+      file_put_contents($input->getOption('out'), $this->pot->toString($input));
+      $progress->finish();
+    }
   }
 
-  protected function extractFiles(InputInterface $input, OutputInterface $output, $paths) {
+  protected function findFiles($paths) {
+    $actualFiles = array();
+
     sort($paths);
     $paths = array_unique($paths);
 
@@ -89,12 +110,14 @@ class ExtractCommand extends Command {
         }
         $d->close();
 
-        $this->extractFiles($input, $output, $children);
+        $actualFiles = array_merge($actualFiles, $this->findFiles($children));
       }
       elseif (file_exists($path)) {
-        $this->extractFile($path);
+        $actualFiles[] = $path;
       }
     }
+
+    return $actualFiles;
   }
 
   /**

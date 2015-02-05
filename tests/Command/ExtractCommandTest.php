@@ -8,6 +8,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 
   const COMMAND = 'civistrings';
 
+  protected $tmpFile = NULL;
+
   public function examples() {
     $cases = array(); // array(array $inputFiles, string $expectedOutputFile)
 
@@ -18,6 +20,14 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
     $cases[] = array(array("examples/ex5.html"), "examples/ex5.pot");
 
     return $cases;
+  }
+
+  protected function tearDown() {
+    parent::tearDown();
+    if ($this->tmpFile) {
+      unlink($this->tmpFile);
+      $this->tmpFile = NULL;
+    }
   }
 
   /**
@@ -34,6 +44,25 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
     ));
     $expectedOutput = file_get_contents($expectedOutputFile);
     $this->assertEquals($expectedOutput, $commandTester->getDisplay());
+  }
+
+  /**
+   * @param array $inputFiles
+   * @param string $expectedOutputFile
+   * @dataProvider examples
+   */
+  public function testExecuteWithOutput($inputFiles, $expectedOutputFile) {
+    chdir($this->getBaseDir());
+    $this->tmpFile = tempnam(sys_get_temp_dir(), 'civistrings-');
+    $commandTester = $this->createCommandTester(new ExtractCommand());
+    $commandTester->execute(array(
+      'command' => self::COMMAND,
+      'files' => $inputFiles,
+      '--out' => $this->tmpFile,
+    ));
+    $expectedOutput = file_get_contents($expectedOutputFile);
+    $actualOutput = file_get_contents($this->tmpFile);
+    $this->assertEquals($expectedOutput, $actualOutput);
   }
 
   /**

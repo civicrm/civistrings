@@ -7,8 +7,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Pot {
   protected $strings;
   protected $nextWeight = 1;
+  protected $baseDir;
 
-  public function __construct($strings = array()) {
+  public function __construct($baseDir = '', $strings = array()) {
+    $this->baseDir = $baseDir;
     $this->strings = $strings;
   }
 
@@ -34,10 +36,9 @@ class Pot {
   }
 
   /**
-   * @param InputInterface $input
-   * @param OutputInterface $output
+   * @return string
    */
-  public function printAll(InputInterface $input, OutputInterface $output) {
+  public function toString() {
     uasort($this->strings, function ($a, $b) {
       if (count($a['files']) == 1 && count($a['files']) > 1) {
         return 1;
@@ -51,17 +52,18 @@ class Pot {
     });
 
     //$first = TRUE;
+    $buf = '';
     foreach ($this->strings as $string) {
       //if (!$first) {
-      //  $output->writeln('');
+      //  $buf .= "\n"
       //}
 
       $files = '';
       foreach ($string['files'] as $file) {
-        $files .= $this->relativize($file, $input->getOption('base')) . ' ';
+        $files .= $this->relativize($file, $this->baseDir) . ' ';
       }
       $files = trim($files);
-      $output->writeln("#: $files");
+      $buf .= "#: $files\n";
 
       foreach ($string as $k => $v) {
         switch ($k) {
@@ -72,13 +74,14 @@ class Pot {
             break;
 
           default:
-            $output->writeln("$k \"$v\"");
+            $buf .= "$k \"$v\"\n";
         }
       }
 
       //$first = FALSE;
-      $output->writeln('');
+      $buf .= "\n";
     }
+    return $buf;
   }
 
   protected static function relativize($directory, $basePath) {
