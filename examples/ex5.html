@@ -1,0 +1,14 @@
+<div>Plain string</div>
+<div>{{ts("Text node with double-quotes")}}</div>
+<div>{{ts('Text node with single-quotes')}}</div>
+<div>{{ts("Text node with %1", {1: "whiz"})}}</div>
+<div>{{clients("Not really")}}</div>
+<div>{{clients("Not really with %1", {1: "whiz"})}}</div>
+<div>{{ts("String concat one") + "-" + ts("String concat two")}}</p>
+<div>{{ts(message)}}</div>
+<div>{{ts("Does the ts('example') notation work?")}}</div>
+<div title="ts('Attribute with double+single-quotes')"></div>
+<div title='ts("Attribute with single+double-quotes")'></div>
+<div title="ts('Attribute with double+single-quotes and %1', {1: 'foo'})"></div>
+<div title='ts("Attribute with single+double-quotes and %1", {1: "foo"})'></div>
+<div>{ts}Not really (Smarty){/ts}</div>

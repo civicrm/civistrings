@@ -36,6 +36,7 @@ class ExtractCommand extends Command {
   protected function initialize(InputInterface $input, OutputInterface $output) {
     $this->parsers = array();
     $this->parsers['js'] = new JsParser();
+    $this->parsers['html'] = new JsParser();
     $this->parsers['php'] = new PhpParser();
     $this->parsers['smarty'] = new SmartyParser($this->parsers['php']);
   }
@@ -109,6 +110,9 @@ class ExtractCommand extends Command {
     }
     elseif (preg_match('/\.js$/', $file)) {
       $parser = 'js';
+    }
+    elseif (preg_match('/\.html$/', $file)) {
+      $parser = 'html';
     }
     elseif (preg_match('/\.tpl$/', $file)) {
       $parser = 'smarty';

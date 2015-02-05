@@ -1,0 +1,40 @@
+#: examples/ex5.html
+msgid "Text node with double-quotes"
+msgstr ""
+
+#: examples/ex5.html
+msgid "Text node with single-quotes"
+msgstr ""
+
+#: examples/ex5.html
+msgid "Text node with %1"
+msgstr ""
+
+#: examples/ex5.html
+msgid "String concat one"
+msgstr ""
+
+#: examples/ex5.html
+msgid "String concat two"
+msgstr ""
+
+#: examples/ex5.html
+msgid "Does the ts('example') notation work?"
+msgstr ""
+
+#: examples/ex5.html
+msgid "Attribute with double+single-quotes"
+msgstr ""
+
+#: examples/ex5.html
+msgid "Attribute with single+double-quotes"
+msgstr ""
+
+#: examples/ex5.html
+msgid "Attribute with double+single-quotes and %1"
+msgstr ""
+
+#: examples/ex5.html
+msgid "Attribute with single+double-quotes and %1"
+msgstr ""
+
