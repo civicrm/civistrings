@@ -11,12 +11,27 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Extract strings from a list of files.
+ *
+ * @package Civi\Strings\Command
+ */
 class ExtractCommand extends Command {
 
+  /**
+   * @var array
+   *   Array(string $name => ParserInterface $parser)
+   */
   protected $parsers;
 
+  /**
+   * @var Pot
+   */
   protected $pot;
 
+  /**
+   * @var null|resource
+   */
   protected $stdin;
 
   public function __construct($name = NULL, $stdin = NULL) {
@@ -27,8 +42,8 @@ class ExtractCommand extends Command {
   protected function configure() {
     $this
       ->setName('civistrings')
-      ->setDescription('Extract strings from the given files')
-      ->setHelp('Compare the commits/revisions in different source trees')
+      ->setDescription('Extract strings')
+      ->setHelp('Extract files any mix of PHP, Smarty, JS, HTML files.')
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings. Use "-" to accept file names from STDIN')
       ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()));
   }
