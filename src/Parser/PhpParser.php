@@ -29,7 +29,7 @@ define('TS_CALL_TYPE_PLURAL', 2);
  * @copyright 2003, 2004 Alfa21 Outsourcing
  * @license http://www.gnu.org/licenses/gpl.html  GNU General Public License
  */
-class PhpParser {
+class PhpParser implements ParserInterface {
 
   /**
    * @param string $file

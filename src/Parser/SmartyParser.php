@@ -38,7 +38,7 @@ use Civi\Strings\Pot;
  * @copyright 2004 Sagi Bashari
  * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public License
  */
-class SmartyParser {
+class SmartyParser implements ParserInterface {
 
   /**
    * @var PhpParser
@@ -60,7 +60,7 @@ class SmartyParser {
    * @param Pot $pot
    * @throws \Exception
    */
-  public function parse($file, $content, $pot) {
+  public function parse($file, $content, Pot $pot) {
     if (empty($content)) {
       return;
     }
