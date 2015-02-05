@@ -41,6 +41,18 @@ use Civi\Strings\Pot;
 class SmartyParser {
 
   /**
+   * @var PhpParser
+   */
+  protected $phpParser;
+
+  /**
+   * @param PhpParser|NULL $phpParser
+   */
+  public function __construct($phpParser = NULL) {
+    $this->phpParser = $phpParser;
+  }
+
+  /**
    * Rips gettext strings from $file and prints them in C format.
    *
    * @param string $file
@@ -66,18 +78,13 @@ class SmartyParser {
     $phpTagMatches = array();
     preg_match_all("/{$ldq}\s*(php)\s*([^{$rdq}]*){$rdq}([^{$ldq}]*){$ldq}\/\\1{$rdq}/", $content, $phpTagMatches);
     if (!empty($phpTagMatches[3][0])) {
-      throw new \Exception("Not implemented: {php} parsing");
-      // we want to create a file with the same path and name, but under the
-      // tempdir; this allows the php-extractor.php to add the right comment
-      /*
-      $phpCode = $phpTagMatches[3][0];
-      $tempdir = sys_get_temp_dir();
-      $filedir = substr(dirname($file), strlen($root) + 1);
-      $filename = basename($file);
-      @mkdir("$tempdir/$filedir", 0777, TRUE);
-      file_put_contents("$tempdir/$filedir/$filename", "<?php $phpCode ?>");
-      passthru("bin/php-extractor.php $tempdir $tempdir/$filedir/$filename");
-       */
+      if ($this->phpParser) {
+        $phpCode = '<?php' . $phpTagMatches[3][0] . '?>';
+        $this->phpParser->parse($file, $phpCode, $pot);
+      }
+      else {
+        throw new \Exception("Not implemented: {php} parsing");
+      }
     }
 
     preg_match_all("/{$ldq}\s*({$cmd})\s*([^{$rdq}]*){$rdq}([^{$ldq}]*){$ldq}\/\\1{$rdq}/", $content, $matches);

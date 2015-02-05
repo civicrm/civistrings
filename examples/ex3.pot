@@ -1,4 +1,8 @@
 #: examples/ex3.tpl
+msgid "Hello, %1, from embedded PHP"
+msgstr ""
+
+#: examples/ex3.tpl
 msgid "First"
 msgstr ""
 

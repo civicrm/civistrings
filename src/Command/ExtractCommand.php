@@ -37,7 +37,7 @@ class ExtractCommand extends Command {
     $this->parsers = array();
     $this->parsers['js'] = new JsParser();
     $this->parsers['php'] = new PhpParser();
-    $this->parsers['smarty'] = new SmartyParser();
+    $this->parsers['smarty'] = new SmartyParser($this->parsers['php']);
   }
 
   protected function execute(InputInterface $input, OutputInterface $output) {
