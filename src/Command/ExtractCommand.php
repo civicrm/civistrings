@@ -106,7 +106,7 @@ class ExtractCommand extends Command {
           if ($entry == '.' || $entry == '..') {
             continue;
           }
-          $children[] = $path . '/' . $entry;
+          $children[] = rtrim($path, '/') . '/' . $entry;
         }
         $d->close();
 
@@ -152,7 +152,7 @@ class ExtractCommand extends Command {
     elseif (preg_match('/\.html$/', $file)) {
       $parser = 'html';
     }
-    elseif (preg_match('/\.tpl$/', $file)) {
+    elseif (preg_match('/\.(tpl|hlp)$/', $file)) {
       $parser = 'smarty';
     }
     elseif (preg_match('/\.php$/', $file) || preg_match(':^<\?php:', $content) || preg_match(':^#![^\n]+php:', $content)) {
