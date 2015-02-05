@@ -17,6 +17,10 @@ $m = ts("This is some repeating text");
 function embedded_function_call() {
   return 12;
 }
+$n = ts('An example with Drupal-style trailing comma is as %1 as %2', array(
+  1 => 1+2 . 'good' . ($num++),
+  2 => pick(array('gold', 'chocolate', 'other')),
+));
 
 //$n = ts(embedded_function_call());
 $s1 = ts('a test with a %1 variable, and %2 another one', array(1 => 'one', 2 => 'two'));

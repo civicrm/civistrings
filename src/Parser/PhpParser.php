@@ -190,7 +190,10 @@ class PhpParser implements ParserInterface {
         }
       }
 
-      if ($key[1] == "'count'" or $key[1] == '"count"') {
+      if (!is_array($key)) {
+        // ignore?
+      }
+      elseif ($key[1] == "'count'" or $key[1] == '"count"') {
         // no double count declarations
         if ($haveCount) {
           fwrite(STDERR, "[006] Invalid marker content");

@@ -39,6 +39,10 @@ msgid "This is some repeating text"
 msgstr ""
 
 #: examples/ex1.php
+msgid "An example with Drupal-style trailing comma is as %1 as %2"
+msgstr ""
+
+#: examples/ex1.php
 msgid "a test with a %1 variable, and %2 another one"
 msgstr ""
 
