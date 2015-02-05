@@ -22,7 +22,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
     $cases[] = array($dir, array("examples/ex1.php"), "examples/ex1.pot");
     $cases[] = array($dir, array("examples/ex2.js"), "examples/ex2.pot");
     $cases[] = array($dir, array("examples/ex3.tpl"), "examples/ex3.pot");
-    $cases[] = array($dir, array("examples/ex4.cmd", "examples/ex4.install", "examples/ex4.module", "examples/ex4.tpl", "examples/ex4.js", "examples/ex4.cmd2",), "examples/ex4.pot");
+    $cases[] = array($dir, array("examples/ex4.cmd", "examples/ex4.install", "examples/ex4.module", "examples/ex4.tpl", "examples/ex4.js", "examples/ex4.cmd2", "examples/ex4.txt"), "examples/ex4.pot");
 
     return $cases;
   }

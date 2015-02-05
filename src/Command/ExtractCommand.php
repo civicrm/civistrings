@@ -88,6 +88,7 @@ class ExtractCommand extends Command {
   protected function pickParser($file, $content) {
     $file = realpath($file);
 
+    $parser = NULL;
     if (preg_match('/~$/', $file)) {
       // skip
     }
