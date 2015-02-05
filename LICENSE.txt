@@ -1,0 +1,9 @@
+Copyright (c) 2014 CiviCRM LLC, http://civicrm.org/
+Available under GPL v2+.
+
+The following files were imported from the l10n repository and are based on
+open-source code from third-parties:
+
+src/Parser/JsParser.php (LGPL-2.1; uncredited)
+src/Parser/PhpParser.php (GPL, circa 2004; predates GPLv3; Hojtsy and Szotkowski)
+src/Parser/SmartyParser.php (LGPL-2.1; Bashari and Szotkowski)
