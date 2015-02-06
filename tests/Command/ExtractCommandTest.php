@@ -65,6 +65,18 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($expectedOutput, $actualOutput);
   }
 
+  public function testExecuteWithHeader() {
+    chdir($this->getBaseDir());
+    $commandTester = $this->createCommandTester(new ExtractCommand());
+    $commandTester->execute(array(
+      'command' => self::COMMAND,
+      'files' => array('examples/ex1.php'),
+      '--header' => 'examples/header',
+    ));
+    $expectedOutput = file_get_contents('examples/header') . file_get_contents('examples/ex1.pot');
+    $this->assertEquals($expectedOutput, $commandTester->getDisplay());
+  }
+
   /**
    * This is the same as ex4 from the normal testExecute(), but the input
    * files are passed using a mix of command line arguments and STDIN.

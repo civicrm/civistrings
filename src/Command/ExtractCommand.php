@@ -48,6 +48,7 @@ class ExtractCommand extends Command {
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings. Use "-" to accept file names from STDIN')
       ->addOption('append', 'a', InputOption::VALUE_NONE, 'Append to file. (Use with --out)')
       ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()))
+      ->addOption('header', NULL, InputOption::VALUE_REQUIRED, 'Header file to prepend to output.')
       ->addOption('msgctxt', NULL, InputOption::VALUE_REQUIRED, 'Set default msgctxt for all strings')
       ->addOption('out', 'o', InputOption::VALUE_REQUIRED, 'Output file. (Default: stdout)');
   }
@@ -82,6 +83,9 @@ class ExtractCommand extends Command {
       foreach ($actualFiles as $file) {
         $this->extractFile($file);
       }
+      if ($input->getOption('header')) {
+        $output->write(file_get_contents($input->getOption('header')));
+      }
       $output->write($this->pot->toString($input));
     }
     else {
@@ -92,7 +96,15 @@ class ExtractCommand extends Command {
         $this->extractFile($file);
         $progress->advance();
       }
-      file_put_contents($input->getOption('out'), $this->pot->toString($input), $input->getOption('append') ? FILE_APPEND : NULL);
+      $content = '';
+      ## If header is supplied and if we're starting a new file.
+      if ($input->getOption('header')) {
+        if (!file_exists($input->getOption('out')) || !$input->getOption('append')) {
+          $content .= file_get_contents($input->getOption('header'));
+        }
+      }
+      $content .= $this->pot->toString($input);
+      file_put_contents($input->getOption('out'), $content, $input->getOption('append') ? FILE_APPEND : NULL);
       $progress->finish();
     }
   }
