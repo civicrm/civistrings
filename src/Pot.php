@@ -79,6 +79,10 @@ class Pot {
     //$first = TRUE;
     $buf = '';
     foreach ($this->strings as $string) {
+      if (empty($string['msgid'])) {
+        continue;
+      }
+
       //if (!$first) {
       //  $buf .= "\n"
       //}
