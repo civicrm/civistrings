@@ -14,3 +14,9 @@ function whits() {
 alert(ts("Fifth") + "-" + ts("Sixth"));
 alert(ts(message));
 alert(ts("Embedded ts(\'example\')"));
+ts("Special\ncharacters");
+ts('Special\ncharacters');
+ts("more \$special characters");
+ts('even more \\$special characters');
+ts("Mixed 'quote' \"marks\"");
+ts('Mixed "quote" \'marks\'');

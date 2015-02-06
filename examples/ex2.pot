@@ -23,6 +23,26 @@ msgid "Sixth"
 msgstr ""
 
 #: examples/ex2.js
-msgid "Embedded ts(\'example\')"
+msgid "Embedded ts('example')"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Special\ncharacters"
+msgstr ""
+
+#: examples/ex2.js
+msgid "more $special characters"
+msgstr ""
+
+#: examples/ex2.js
+msgid "even more \\$special characters"
+msgstr ""
+
+#: examples/ex2.js
+msgid "Mixed 'quote' \"marks\""
+msgstr ""
+
+#: examples/ex2.js
+msgid "Mixed \"quote\" 'marks'"
 msgstr ""
 

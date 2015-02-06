@@ -75,7 +75,7 @@ class JsParser implements ParserInterface {
       if ($text = self::fs($text)) {
         $pot->add(array(
           'file' => $file,
-          'msgid' => $text,
+          'msgid' => stripcslashes($text),
           'msgstr' => '',
         ));
       }

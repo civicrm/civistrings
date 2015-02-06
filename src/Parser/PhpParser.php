@@ -301,7 +301,7 @@ class PhpParser implements ParserInterface {
     else {
       $str = strtr($str, array("\\'" => "'", "\\\\" => "\\"));
     }
-    return addcslashes($str, "\0..\37\\\"");
+    return $str;
   }
 
   /**

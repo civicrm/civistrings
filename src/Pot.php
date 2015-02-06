@@ -103,7 +103,7 @@ class Pot {
             break;
 
           default:
-            $buf .= "$k \"$v\"\n";
+            $buf .= "$k " . $this->escapeString($v) . "\n";
         }
       }
 
@@ -112,6 +112,11 @@ class Pot {
     }
     return $buf;
   }
+
+  protected function escapeString($str) {
+    return  '"' . addcslashes($str, "\0..\37\\\"")  . '"';
+  }
+
 
   protected static function relativize($directory, $basePath) {
     $basePath = rtrim($basePath, '/') . '/';
