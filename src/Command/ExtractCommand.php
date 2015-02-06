@@ -47,6 +47,7 @@ class ExtractCommand extends Command {
       ->setHelp('Extract files any mix of PHP, Smarty, JS, HTML files.')
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings. Use "-" to accept file names from STDIN')
       ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()))
+      ->addOption('msgctxt', NULL, InputOption::VALUE_REQUIRED, 'Set default msgctxt for all strings')
       ->addOption('out', 'o', InputOption::VALUE_REQUIRED, 'Output file. (Default: stdout)');
   }
 
@@ -59,7 +60,11 @@ class ExtractCommand extends Command {
   }
 
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $this->pot = new Pot($input->getOption('base'));
+    $defaults = array();
+    if ($input->getOption('msgctxt')) {
+      $defaults['msgctxt'] = $input->getOption('msgctxt');
+    }
+    $this->pot = new Pot($input->getOption('base'), array(), $defaults);
 
     $files = $input->getArgument('files');
 

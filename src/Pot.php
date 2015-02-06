@@ -5,13 +5,36 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Pot {
+  /**
+   * Array(string $msgid => array $msgdef)
+   *
+   * @var array
+   */
   protected $strings;
+
+  /**
+   * @var int
+   */
   protected $nextWeight = 1;
+
+  /**
+   * Report all files as relative to $baseDir
+   *
+   * @var string
+   */
   protected $baseDir;
 
-  public function __construct($baseDir = '', $strings = array()) {
+  /**
+   * Default properties to set on new strings.
+   *
+   * @var array
+   */
+  protected $defaults;
+
+  public function __construct($baseDir = '', $strings = array(), $defaults = array()) {
     $this->baseDir = $baseDir;
     $this->strings = $strings;
+    $this->defaults = $defaults;
   }
 
   public function add($string) {
@@ -21,6 +44,8 @@ class Pot {
       $string['files'] = array($string['file']);
       unset($string['file']);
     }
+
+    $string = array_merge($this->defaults, $string);
 
     if (isset($this->strings[$id])) {
       $this->strings[$id]['files'] = array_unique(array_merge($this->strings[$id]['files'], $string['files']));
