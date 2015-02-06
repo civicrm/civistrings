@@ -44,7 +44,7 @@ class ExtractCommand extends Command {
     $this
       ->setName('civistrings')
       ->setDescription('Extract strings')
-      ->setHelp('Extract files any mix of PHP, Smarty, JS, HTML files.')
+      ->setHelp('Extract strings from any mix of PHP, Smarty, JS, HTML files.')
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings. Use "-" to accept file names from STDIN')
       ->addOption('append', 'a', InputOption::VALUE_NONE, 'Append to file. (Use with --out)')
       ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()))
