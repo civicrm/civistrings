@@ -6,3 +6,9 @@
 {php}
     echo ts('Hello, %1, from embedded PHP', array(1 => 'world'));
 {/php}
+{ts 1=$label}Delete Option "%1"{/ts}
+{ts}The corpus's forward-slashes "/" and backslashes "\" where properly processed.{/ts}
+{ts}This goes on
+and on
+and on
+for several lines.{/ts}

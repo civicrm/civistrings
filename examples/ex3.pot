@@ -24,3 +24,15 @@ msgid_plural "CiviCRM has detected mismatched membership IDs. These records have
 msgstr[0] ""
 msgstr[1] ""
 
+#: examples/ex3.tpl
+msgid "Delete Option \"%1\""
+msgstr ""
+
+#: examples/ex3.tpl
+msgid "The corpus's forward-slashes \"/\" and backslashes \"\\\" where properly processed."
+msgstr ""
+
+#: examples/ex3.tpl
+msgid "This goes on\nand on\nand on\nfor several lines."
+msgstr ""
+

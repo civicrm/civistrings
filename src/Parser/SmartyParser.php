@@ -93,8 +93,8 @@ class SmartyParser implements ParserInterface {
       if (preg_match('/plural\s*=\s*["\']?\s*(.[^\"\']*)\s*["\']?/', $matches[2][$i], $match)) {
         $pot->add(array(
           'file' => $file,
-          'msgid' => self::fs($matches[3][$i]),
-          'msgid_plural' => self::fs($match[1]),
+          'msgid' => self::unescape($matches[3][$i]),
+          'msgid_plural' => self::unescape($match[1]),
           'msgstr[0]' => '',
           'msgstr[1]' => '',
         ));
@@ -103,7 +103,7 @@ class SmartyParser implements ParserInterface {
       else {
         $pot->add(array(
           'file' => $file,
-          'msgid' => self::fs($matches[3][$i]),
+          'msgid' => self::unescape($matches[3][$i]),
           'msgstr' => '',
         ));
 
@@ -116,14 +116,14 @@ class SmartyParser implements ParserInterface {
       if (preg_match('/text\s*=\s*["\']?\s*(.[^\"\']*)\s*["\']?/', $matches[2][$i], $match)) {
         $pot->add(array(
           'file' => $file,
-          'msgid' => self::fs($match[1]),
+          'msgid' => self::unescape($match[1]),
           'msgstr' => '',
         ));
       }
       if (preg_match('/title\s*=\s*["\']?\s*(.[^\"\']*)\s*["\']?/', $matches[2][$i], $match)) {
         $pot->add(array(
           'file' => $file,
-          'msgid' => self::fs($match[1]),
+          'msgid' => self::unescape($match[1]),
           'msgstr' => '',
         ));
       }
@@ -131,12 +131,16 @@ class SmartyParser implements ParserInterface {
   }
 
   /**
-   * "fix" string - strip slashes, escape and convert new lines to \n
+   * Undo any Smarty escaping
    */
-  public static function fs($str) {
-    $str = stripslashes($str);
-    $str = str_replace('"', '\"', $str);
-    $str = str_replace("\n", '\n', $str);
+  public static function unescape($str) {
+    // Smarty doesn't using C-style escaping!
+    // $str = stripslashes($str);
+
+    // It does have {literal}, but our pattern-match prevents us from capturing strings with nested directives.
+    // It's arguable that perhaps Smarty strings from HTML/XML documents should use html_entity_decode() and then
+    // use htmlentities() on output, but we don't know if we're in an HTML or another format.
+
     return $str;
   }
 
