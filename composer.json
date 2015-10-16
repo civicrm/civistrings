@@ -3,7 +3,8 @@
     "description": "String extractor for CiviCRM",
     "license": "GPL-2+",
     "require": {
-        "symfony/console": "~2.3"
+        "symfony/console": "~2.3",
+        "nikic/php-parser": "~1.4.1"
     },
     "authors": [
         {

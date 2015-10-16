@@ -2,7 +2,7 @@
 namespace Civi\Strings\Command;
 
 use Civi\Strings\Parser\JsParser;
-use Civi\Strings\Parser\PhpParser;
+use Civi\Strings\Parser\PhpTreeParser;
 use Civi\Strings\Parser\SmartyParser;
 use Civi\Strings\Pot;
 use Symfony\Component\Console\Command\Command;
@@ -57,7 +57,7 @@ class ExtractCommand extends Command {
     $this->parsers = array();
     $this->parsers['js'] = new JsParser();
     $this->parsers['html'] = new JsParser();
-    $this->parsers['php'] = new PhpParser();
+    $this->parsers['php'] = new PhpTreeParser();
     $this->parsers['smarty'] = new SmartyParser($this->parsers['php']);
   }
 

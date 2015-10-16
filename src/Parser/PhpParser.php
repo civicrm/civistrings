@@ -22,6 +22,7 @@ define('TS_CALL_TYPE_PLURAL', 2);
  *
  * FIXME Remove fwrite()s
  *
+ * @deprecated see PhpTreeParser
  * @author Jacobo Tarrio <jtarrio [at] alfa21.com>
  * @author Gabor Hojtsy <goba [at] php.net>
  * @author Piotr Szotkowski <shot@caltha.pl>
