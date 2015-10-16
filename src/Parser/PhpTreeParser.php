@@ -51,7 +51,7 @@ class PhpTreeParser implements ParserInterface {
         // this is a 'ts' function call
         $this->createPOTEntry($node, $pot, $file);
       }
-      // else descend into branch
+      // in any way: descend into subtree
       foreach ($node as $key => &$value) {
         $this->extractStrings($value, $pot, $file);
       }
