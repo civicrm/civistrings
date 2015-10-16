@@ -100,10 +100,6 @@ class PhpTreeParser implements ParserInterface {
       } else {
         foreach ($node->args[1]->value->items as &$ts_argument) {
           switch ($ts_argument->key->value) {
-            case 'domain':
-              $pot_entry['domain'] = $ts_argument->value->value;
-              break;
-
             case 'plural':
               // FIXME: Is this really correct or just a workaround? (copied from old implementation)
               unset($pot_entry['msgstr']);
@@ -117,6 +113,7 @@ class PhpTreeParser implements ParserInterface {
               break;
             
             default:
+            case 'domain':
             case 'count':
             case 'escape':
               break;
