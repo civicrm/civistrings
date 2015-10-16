@@ -44,19 +44,17 @@ class PhpTreeParser implements ParserInterface {
       foreach ($node as &$single_node) {
         $this->extractStrings($single_node, $pot, $file);
       }
+    } elseif (is_scalar($node)) {
+      return;
     } elseif (is_object($node)) {
-      if (isset($node->expr)) {
-        $this->extractStrings($node->expr, $pot, $file);
-      }
-      if (isset($node->exprs)) {
-        $this->extractStrings($node->exprs, $pot, $file);
-      }
-      if (isset($node->args)) {
-        $this->extractStrings($node->exprs, $pot, $file);
-      }
       if (get_class($node) == "PhpParser\Node\Expr\FuncCall" && $node->name->parts[0] == 'ts') {
         // this is a 'ts' function call
         $this->createPOTEntry($node, $pot, $file);
+      } else {
+        // else descend into branch
+        foreach ($node as $key => &$value) {
+          $this->extractStrings($value, $pot, $file);
+        }
       }
     } elseif ($node==NULL) {
       return;
