@@ -50,11 +50,10 @@ class PhpTreeParser implements ParserInterface {
       if (get_class($node) == "PhpParser\Node\Expr\FuncCall" && $node->name->parts[0] == 'ts') {
         // this is a 'ts' function call
         $this->createPOTEntry($node, $pot, $file);
-      } else {
-        // else descend into branch
-        foreach ($node as $key => &$value) {
-          $this->extractStrings($value, $pot, $file);
-        }
+      }
+      // else descend into branch
+      foreach ($node as $key => &$value) {
+        $this->extractStrings($value, $pot, $file);
       }
     } elseif ($node==NULL) {
       return;
