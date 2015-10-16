@@ -94,12 +94,18 @@ class Pot {
       $files = trim($files);
       $buf .= "#: $files\n";
 
-      // msgid should go first after files
+      // msgctxt should go first after files if exists
+      if (isset($string['msgctxt'])) {
+        $buf .= "msgctxt " . $this->escapeString($string['msgctxt']) . "\n";
+      }
+
+      // ...then msgid
       $buf .= "msgid " . $this->escapeString($string['msgid']) . "\n";
 
       foreach ($string as $k => $v) {
         switch ($k) {
           case 'msgid':
+          case 'msgctxt':
           case 'files':
           case 'weight':
             break;

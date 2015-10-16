@@ -56,3 +56,18 @@ msgstr[1] ""
 msgid "a test for multitoken element value"
 msgstr ""
 
+#: examples/ex1.php
+msgctxt "testcontext"
+msgid "This is some text with context"
+msgstr ""
+
+#: examples/ex1.php
+msgctxt "other_context"
+msgid "This is some text with %1 context"
+msgstr ""
+
+#: examples/ex1.php
+msgctxt "testcontext"
+msgid "This is some text %1 context"
+msgstr ""
+
