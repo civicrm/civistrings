@@ -78,12 +78,12 @@ class PhpTreeParser implements ParserInterface {
 
     // verify the call:
     if (!isset($node->args[0])) {
-      $this->reportError("ts() call has no arguments.", 'error',  $file);
+      $this->reportError("ts() call has no arguments.", 'error',  $file, $node->getLine());
       return;
     }
 
     if (get_class($node->args[0]->value) != 'PhpParser\Node\Scalar\String_') {
-      $this->reportError("first argument of ts() call is no string.", 'warn',  $file);
+      $this->reportError("first argument of ts() call is no string.", 'warn',  $file, $node->getLine());
       return;
     }
 
@@ -94,7 +94,7 @@ class PhpTreeParser implements ParserInterface {
     // process the arguments
     if (isset($node->args[1])) {
       if (get_class($node->args[1]->value) != 'PhpParser\Node\Expr\Array_') {
-        $this->reportError("second argument of ts() call is not an array.", 'warn',  $file);
+        $this->reportError("second argument of ts() call is not an array.", 'warn', $file, $node->getLine());
       } else {
         foreach ($node->args[1]->value->items as &$ts_argument) {
           switch ($ts_argument->key->value) {
@@ -130,12 +130,12 @@ class PhpTreeParser implements ParserInterface {
    * @param string level      severity, on of 'error', 'warn', 'info'
    * @param string reference  location of the error, e.g. the file
    */
-  protected function reportError($message, $level = 'error', $reference = NULL) {
+  protected function reportError($message, $level = 'error', $file = NULL, $line = 'n/a') {
     // TODO: find proper sink for error messages
-    if ($reference) {
-      fwrite(STDERR, "[$level] $message ($reference)");
+    if ($file) {
+      fwrite(STDERR, "[$level] $message ($file:$line)\n");
     } else {
-      fwrite(STDERR, "[$level] $message");
+      fwrite(STDERR, "[$level] $message\n");
     }
   }
 }
