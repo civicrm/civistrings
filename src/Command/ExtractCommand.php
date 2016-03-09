@@ -4,6 +4,7 @@ namespace Civi\Strings\Command;
 use Civi\Strings\Parser\JsParser;
 use Civi\Strings\Parser\PhpTreeParser;
 use Civi\Strings\Parser\SmartyParser;
+use Civi\Strings\Parser\SettingParser;
 use Civi\Strings\Pot;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressHelper;
@@ -59,6 +60,7 @@ class ExtractCommand extends Command {
     $this->parsers['html'] = new JsParser();
     $this->parsers['php'] = new PhpTreeParser();
     $this->parsers['smarty'] = new SmartyParser($this->parsers['php']);
+    $this->parsers['setting'] = new SettingParser();
   }
 
   protected function execute(InputInterface $input, OutputInterface $output) {
@@ -169,6 +171,9 @@ class ExtractCommand extends Command {
     }
     elseif (preg_match('/\.html$/', $file)) {
       $parser = 'html';
+    }
+    elseif (preg_match('/\.setting.php$/', $file)) {
+      $parser = 'setting';
     }
     elseif (preg_match('/\.(tpl|hlp)$/', $file)) {
       $parser = 'smarty';
