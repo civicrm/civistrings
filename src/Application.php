@@ -21,7 +21,7 @@ class Application extends \Symfony\Component\Console\Application {
    *   Path to the main application binary.
    */
   public static function main($binDir) {
-    $application = new Application('git-scan', '@package_version@');
+    $application = new Application('civistrings', '@package_version@');
     $application->run();
   }
 
