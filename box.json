@@ -1,0 +1,17 @@
+{
+    "chmod": "0755",
+    "directories": [
+        "src"
+    ],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["phpunit", "Tests", "Test", "tests", "test"],
+            "in": "vendor"
+        }
+    ],
+    "git-version": "package_version",
+    "main": "bin/civistrings",
+    "output": "bin/civistrings.phar",
+    "stub": true
+}

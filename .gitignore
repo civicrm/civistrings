@@ -2,3 +2,4 @@
 .idea/
 vendor/
 bin/phpunit
+bin/civistrings.phar
