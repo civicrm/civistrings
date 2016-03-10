@@ -1,20 +1,20 @@
-#: ../examples/new/Event.setting.php
+#: examples/Event.setting.php
 msgid "Event Preferences"
 msgstr ""
 
-#: ../examples/new/Event.setting.php
+#: examples/Event.setting.php
 msgid "Enable Event Cart"
 msgstr ""
 
-#: ../examples/new/Event.setting.php
+#: examples/Event.setting.php
 msgid "WRITE ME"
 msgstr ""
 
-#: ../examples/new/Event.setting.php
+#: examples/Event.setting.php
 msgid "Dashboard entries"
 msgstr ""
 
-#: ../examples/new/Event.setting.php
+#: examples/Event.setting.php
 msgid "Configure how many events should be shown on the dashboard. This overrides the default value of 10 entries."
 msgstr ""
 
