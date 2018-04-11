@@ -35,3 +35,6 @@ $s5 = ts('a test for multitoken element value', array(1 => $c . $d));
 $t1 = ts("This is some text with context", array('context' => 'testcontext'));
 $t2 = ts("This is some text with %1 context", array('context' => 'other_context', 1 => 'more'));
 $t3 = ts("This is some text %1 context", array(1 => 'with even more', 'context' => 'testcontext'));
+
+$ext1 = E::ts('The string from the extension');
+$ext2 = E::ts('The contextualized string from the extension', ['context' => 'testcontext']);

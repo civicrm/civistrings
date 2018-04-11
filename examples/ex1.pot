@@ -71,3 +71,12 @@ msgctxt "testcontext"
 msgid "This is some text %1 context"
 msgstr ""
 
+#: examples/ex1.php
+msgid "The string from the extension"
+msgstr ""
+
+#: examples/ex1.php
+msgctxt "testcontext"
+msgid "The contextualized string from the extension"
+msgstr ""
+
