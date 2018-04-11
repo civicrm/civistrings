@@ -50,7 +50,7 @@ class PhpTreeParser implements ParserInterface {
       if (get_class($node) == "PhpParser\Node\Expr\FuncCall" && $node->name->parts[0] == 'ts') {
         // this is a 'ts' function call
         $this->createPOTEntry($node, $pot, $file);
-      } elseif ($node->name == 'ts' && $node->class->parts[0] == 'E') {
+      } elseif (get_class($node) == "PhpParser\Node\Expr\StaticCall" && $node->name == 'ts' && $node->class->parts[0] == 'E') {
         // detects the new E::ts() style translations
         $this->createPOTEntry($node, $pot, $file);
       }
