@@ -114,23 +114,26 @@ class ExtractCommand extends Command {
   protected function findFiles($paths) {
     $actualFiles = array();
 
+    $exclude_dirs = ['vendor', 'node_modules'];
     sort($paths);
     $paths = array_unique($paths);
 
     foreach ($paths as $path) {
       if (is_dir($path)) {
-        $children = array();
+        if (!in_array(basename($path), $exclude_dirs)) {
+          $children = array();
 
-        $d = dir($path);
-        while (FALSE !== ($entry = $d->read())) {
-          if ($entry == '.' || $entry == '..') {
-            continue;
+          $d = dir($path);
+          while (FALSE !== ($entry = $d->read())) {
+            if ($entry == '.' || $entry == '..') {
+              continue;
+            }
+            $children[] = rtrim($path, '/') . '/' . $entry;
           }
-          $children[] = rtrim($path, '/') . '/' . $entry;
-        }
-        $d->close();
+          $d->close();
 
-        $actualFiles = array_merge($actualFiles, $this->findFiles($children));
+          $actualFiles = array_merge($actualFiles, $this->findFiles($children));
+        }
       }
       elseif (file_exists($path)) {
         $actualFiles[] = $path;
