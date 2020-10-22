@@ -4,7 +4,7 @@
     "license": "GPL-2+",
     "require": {
         "symfony/console": "~2.3",
-        "nikic/php-parser": "~1.4.1"
+        "nikic/php-parser": "~4.10.2"
     },
     "authors": [
         {
