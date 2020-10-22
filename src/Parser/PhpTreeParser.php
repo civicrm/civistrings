@@ -23,7 +23,7 @@ class PhpTreeParser implements ParserInterface {
   public function parse($file, $code, Pot $pot) {
     // Extract raw tokens
     $lexer = new \PhpParser\Lexer\Emulative();
-    $parser = new \PhpParser\Parser($lexer);
+    $parser = (new \PhpParser\ParserFactory)->create(\PhpParser\ParserFactory::PREFER_PHP7, $lexer);
     try {
       $stmts = $parser->parse($code);
       $this->extractStrings($stmts, $pot, $file);
