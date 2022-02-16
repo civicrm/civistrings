@@ -4,7 +4,7 @@ namespace Civi\Strings\Command;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase {
+class ApplicationTest extends \PHPUnit\Framework\TestCase {
 
   const COMMAND = 'civistrings';
 
@@ -23,7 +23,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
     return $cases;
   }
 
-  protected function tearDown() {
+  protected function tearDown(): void {
     parent::tearDown();
     if ($this->tmpFile) {
       unlink($this->tmpFile);
