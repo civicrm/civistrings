@@ -3,3 +3,4 @@
 vendor/
 bin/phpunit
 bin/civistrings.phar
+bin/php-parse
