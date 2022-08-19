@@ -136,6 +136,11 @@ class ExtractCommand extends Command {
         }
       }
       elseif (file_exists($path)) {
+        // civix files will throw warnings and should not have any strings
+        $filename = basename($path);
+        if (preg_match('/^.+\.civix.php$/', $filename)) {
+          continue;
+        }
         $actualFiles[] = $path;
       }
     }
