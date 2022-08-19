@@ -47,7 +47,7 @@ class PhpTreeParser implements ParserInterface {
     } elseif (is_scalar($node)) {
       return;
     } elseif (is_object($node)) {
-      if (get_class($node) == "PhpParser\Node\Expr\FuncCall" && $node->name->parts[0] == 'ts') {
+      if (get_class($node) == "PhpParser\Node\Expr\FuncCall" && ($node->name->parts[0] ?? '') == 'ts') {
         // this is a 'ts' function call
         $this->createPOTEntry($node, $pot, $file);
       } elseif (get_class($node) == "PhpParser\Node\Expr\StaticCall" && $node->name == 'ts' && $node->class->parts[0] == 'E') {
