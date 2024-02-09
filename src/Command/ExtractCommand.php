@@ -5,6 +5,7 @@ use Civi\Strings\Parser\JsParser;
 use Civi\Strings\Parser\PhpTreeParser;
 use Civi\Strings\Parser\SmartyParser;
 use Civi\Strings\Parser\SettingParser;
+use Civi\Strings\Parser\XmlParser;
 use Civi\Strings\Pot;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressHelper;
@@ -45,7 +46,7 @@ class ExtractCommand extends Command {
     $this
       ->setName('civistrings')
       ->setDescription('Extract strings')
-      ->setHelp('Extract strings from any mix of PHP, Smarty, JS, HTML files.')
+      ->setHelp('Extract strings from any mix of PHP, Smarty, JS, XML or HTML files.')
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings. Use "-" to accept file names from STDIN')
       ->addOption('append', 'a', InputOption::VALUE_NONE, 'Append to file. (Use with --out)')
       ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()))
@@ -58,6 +59,7 @@ class ExtractCommand extends Command {
     $this->parsers = array();
     $this->parsers['js'] = new JsParser();
     $this->parsers['html'] = new JsParser();
+    $this->parsers['xml'] = new XmlParser();
     $this->parsers['php'] = new PhpTreeParser();
     $this->parsers['smarty'] = new SmartyParser($this->parsers['php']);
     $this->parsers['setting'] = new SettingParser();
@@ -179,6 +181,9 @@ class ExtractCommand extends Command {
     }
     elseif (preg_match('/\.html$/', $file)) {
       $parser = 'html';
+    }
+    elseif (preg_match('/\.xml$/', $file)) {
+      $parser = 'xml';
     }
     elseif (preg_match('/\.setting.php$/', $file)) {
       $parser = 'setting';

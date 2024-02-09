@@ -1,0 +1,12 @@
+#: examples/ex6.xml
+msgid "First"
+msgstr ""
+
+#: examples/ex6.xml
+msgid "I'm second & best."
+msgstr ""
+
+#: examples/ex6.xml
+msgid "A \"third\"!"
+msgstr ""
+

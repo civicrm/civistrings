@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<thing>
+    <one>
+        <title> First </title>
+    </one>
+    <two>
+        <comment>I'm second &amp; best. </comment>
+    </two>
+    <three>
+        <label>A "third"!</label>
+    </three>
+    <four>
+        <other>Not translatable</other>
+    </four>
+</thing>
