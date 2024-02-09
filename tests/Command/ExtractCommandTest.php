@@ -4,7 +4,7 @@ namespace Civi\Strings\Command;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ApplicationTest extends \PHPUnit\Framework\TestCase {
+class ExtractCommandTest extends \PHPUnit\Framework\TestCase {
 
   const COMMAND = 'civistrings';
 
