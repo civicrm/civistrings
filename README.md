@@ -6,7 +6,7 @@ function -- and generates a list of strings using gettext's POT file format.
 
 ## Requirements
 
-* PHP 5.3+
+* PHP 7.4+
 * Composer (http://getcomposer.org)
 
 ### Download: Single Executable (PHAR)
