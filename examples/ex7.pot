@@ -1,0 +1,27 @@
+#: examples/ex7.html
+msgid "Test First String"
+msgstr ""
+
+#: examples/ex7.html
+msgid "Very Something Something"
+msgstr ""
+
+#: examples/ex7.html
+msgid "Very Something Else"
+msgstr ""
+
+#: examples/ex7.html
+msgid "Help Pre Text"
+msgstr ""
+
+#: examples/ex7.html
+msgid "Very Today"
+msgstr ""
+
+#: examples/ex7.html
+msgid "Very This Week"
+msgstr ""
+
+#: examples/ex7.html
+msgid "Radical Individual"
+msgstr ""
