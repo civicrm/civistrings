@@ -27,7 +27,7 @@ class PhpTreeParser implements ParserInterface {
       $stmts = $parser->parse($code);
       $this->extractStrings($stmts, $pot, $file);
     }
-    catch (PhpParser\Error $e) {
+    catch (\PhpParser\Error $e) {
       $this->reportError("Couldn't parse file: " . $e->getMessage(), 'error', $file);
     }
   }
