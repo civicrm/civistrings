@@ -106,7 +106,7 @@ class ExtractCommand extends Command {
         }
       }
       $content .= $this->pot->toString($input);
-      file_put_contents($input->getOption('out'), $content, $input->getOption('append') ? FILE_APPEND : NULL);
+      file_put_contents($input->getOption('out'), $content, $input->getOption('append') ? FILE_APPEND : 0);
       $progress->finish();
     }
 
