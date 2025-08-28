@@ -3,6 +3,10 @@ msgid "Test First String"
 msgstr ""
 
 #: examples/ex6.html
+msgid "Radical Individual"
+msgstr ""
+
+#: examples/ex6.html
 msgid "Very Something Something"
 msgstr ""
 
@@ -22,6 +26,3 @@ msgstr ""
 msgid "Very This Week"
 msgstr ""
 
-#: examples/ex6.html
-msgid "Radical Individual"
-msgstr ""
