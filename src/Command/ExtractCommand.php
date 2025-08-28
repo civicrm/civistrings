@@ -7,7 +7,7 @@ use Civi\Strings\Parser\SmartyParser;
 use Civi\Strings\Parser\SettingParser;
 use Civi\Strings\Pot;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressHelper;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -63,7 +63,7 @@ class ExtractCommand extends Command {
     $this->parsers['setting'] = new SettingParser();
   }
 
-  protected function execute(InputInterface $input, OutputInterface $output) {
+  protected function execute(InputInterface $input, OutputInterface $output): int {
     $defaults = array();
     if ($input->getOption('msgctxt')) {
       $defaults['msgctxt'] = $input->getOption('msgctxt');
@@ -91,8 +91,8 @@ class ExtractCommand extends Command {
       $output->write($this->pot->toString($input));
     }
     else {
-      $progress = new ProgressHelper();
-      $progress->start($output, 1 + count($actualFiles));
+      $progress = new ProgressBar($output);
+      $progress->start(1 + count($actualFiles));
       $progress->advance();
       foreach ($actualFiles as $file) {
         $this->extractFile($file);
@@ -109,6 +109,8 @@ class ExtractCommand extends Command {
       file_put_contents($input->getOption('out'), $content, $input->getOption('append') ? FILE_APPEND : NULL);
       $progress->finish();
     }
+
+    return 0;
   }
 
   protected function findFiles($paths) {
