@@ -35,7 +35,7 @@ class PhpParser implements ParserInterface {
   /**
    * @param string $file
    * @param string $code
-   * @param Pot $pot
+   * @param \Civi\Strings\Pot $pot
    */
   public function parse($file, $code, Pot $pot) {
     // Extract raw tokens
@@ -67,7 +67,7 @@ class PhpParser implements ParserInterface {
    *
    * @param array $tokens the array with tokens from token_get_all()
    * @param string $file the string containing the file name
-   * @param Pot $pot
+   * @param \Civi\Strings\Pot $pot
    *
    * @return void
    */

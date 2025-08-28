@@ -34,6 +34,7 @@ use Civi\Strings\Pot;
  * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public License
  */
 class JsParser implements ParserInterface {
+
   /**
    * "fix" string - strip slashes, escape and convert new lines to \n
    * @link http://issues.civicrm.org/jira/browse/CRM-10833
@@ -56,7 +57,7 @@ class JsParser implements ParserInterface {
    *
    * @param string $file
    * @param string $content
-   * @param Pot $pot
+   * @param \Civi\Strings\Pot $pot
    */
   public function parse($file, $content, Pot $pot) {
     if (empty($content)) {
