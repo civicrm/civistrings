@@ -2,6 +2,7 @@
 
 namespace Civi\Strings\Parser;
 
+use Civi\Afform\StringVisitor;
 use Civi\Strings\Pot;
 
 class HtmlParser extends JsParser implements ParserInterface {
@@ -18,18 +19,21 @@ class HtmlParser extends JsParser implements ParserInterface {
       return;
     }
 
-    $doc = \phpQuery::newDocument("$content", 'text/html');
-    // Match all elements with the af-text class
-    $doc->find('.af-text')->each(function(\DOMElement $item) use ($pot, $file) {
+    $form = [];
+    $doc = \phpQuery::newDocument($content, 'text/html');
+
+    (new StringVisitor())->visit($form, $doc, function ($string) use ($pot, $file) {
       $pot->add([
         'file' => $file,
-        'msgid' => stripcslashes($item->nodeValue),
+        'msgid' => stripcslashes($string),
         'msgstr' => '',
       ]);
+      return $string;
     });
-    // @todo Match other types
 
     // Match all calls to ts()
+    // ASIDE: This is kind of weird. If afform's StringVisitor doesn't handle {{ts('...')}},
+    // then we should probably it.
     parent::parse($file, $content, $pot);
   }
 
