@@ -1,9 +1,6 @@
 <?php
 namespace Civi\Strings;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
 class Pot {
   /**
    * Array(string $msgid => array $msgdef)
@@ -122,9 +119,8 @@ class Pot {
   }
 
   protected function escapeString($str) {
-    return  '"' . addcslashes($str, "\0..\37\\\"")  . '"';
+    return '"' . addcslashes($str, "\0..\37\\\"") . '"';
   }
-
 
   protected static function relativize($directory, $basePath) {
     $basePath = rtrim($basePath, '/') . '/';
