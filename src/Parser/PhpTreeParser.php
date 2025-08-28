@@ -3,7 +3,6 @@ namespace Civi\Strings\Parser;
 
 use Civi\Strings\Pot;
 
-
 /**
  * ts() calls extractor
  *
@@ -18,7 +17,7 @@ class PhpTreeParser implements ParserInterface {
   /**
    * @param string $file
    * @param string $code
-   * @param Pot $pot
+   * @param \Civi\Strings\Pot $pot
    */
   public function parse($file, $code, Pot $pot) {
     // Extract raw tokens
@@ -27,7 +26,8 @@ class PhpTreeParser implements ParserInterface {
     try {
       $stmts = $parser->parse($code);
       $this->extractStrings($stmts, $pot, $file);
-    } catch (PhpParser\Error $e) {
+    }
+    catch (\PhpParser\Error $e) {
       $this->reportError("Couldn't parse file: " . $e->getMessage(), 'error', $file);
     }
   }
@@ -35,22 +35,25 @@ class PhpTreeParser implements ParserInterface {
   /**
    * Recursively searches the tree for ts()-calls
    *
-   * @param node the AST (abstract syntax tree) node to look into
-   * @param pot  the output POT file object
-   * @param file the filename context
+   * @param mixed $node the AST (abstract syntax tree) node to look into
+   * @param \Civi\Strings\Pot $pot the output POT file object
+   * @param string $file the filename context
    */
   protected function extractStrings(&$node, Pot $pot, &$file) {
     if (is_array($node)) {
       foreach ($node as &$single_node) {
         $this->extractStrings($single_node, $pot, $file);
       }
-    } elseif (is_scalar($node)) {
+    }
+    elseif (is_scalar($node)) {
       return;
-    } elseif (is_object($node)) {
+    }
+    elseif (is_object($node)) {
       if (get_class($node) == "PhpParser\Node\Expr\FuncCall" && ($node->name->parts[0] ?? '') == 'ts') {
         // this is a 'ts' function call
         $this->createPOTEntry($node, $pot, $file);
-      } elseif (get_class($node) == "PhpParser\Node\Expr\StaticCall" && $node->name == 'ts' && $node->class->parts[0] == 'E') {
+      }
+      elseif (get_class($node) == "PhpParser\Node\Expr\StaticCall" && $node->name == 'ts' && $node->class->parts[0] == 'E') {
         // detects the new E::ts() style translations
         $this->createPOTEntry($node, $pot, $file);
       }
@@ -58,9 +61,11 @@ class PhpTreeParser implements ParserInterface {
       foreach ($node as $key => &$value) {
         $this->extractStrings($value, $pot, $file);
       }
-    } elseif ($node==NULL) {
+    }
+    elseif ($node == NULL) {
       return;
-    } else {
+    }
+    else {
       $this->reportError("Unknown node type. PhpTreeParser needs to be fixed.", 'warn', $file);
     }
   }
@@ -68,36 +73,36 @@ class PhpTreeParser implements ParserInterface {
   /**
    * Create a POT entry for the ts()-call AST node
    *
-   * @param node the AST (abstract syntax tree) node that represents a ts()-call
-   * @param pot  the output POT file object
-   * @param file the filename context
+   * @param mixed $node the AST (abstract syntax tree) node that represents a ts()-call
+   * @param \Civi\Strings\Pot $pot  the output POT file object
+   * @param string $file the filename context
    */
   protected function createPOTEntry(&$node, Pot $pot, &$file) {
     $pot_entry = array(
       'file'   => $file,
-      'msgstr' => ''
+      'msgstr' => '',
     );
 
     // verify the call:
     if (!isset($node->args[0])) {
-      $this->reportError("ts() call has no arguments.", 'error',  $file, $node->getLine());
+      $this->reportError("ts() call has no arguments.", 'error', $file, $node->getLine());
       return;
     }
 
     if (get_class($node->args[0]->value) != 'PhpParser\Node\Scalar\String_') {
-      $this->reportError("first argument of ts() call is no string.", 'warn',  $file, $node->getLine());
+      $this->reportError("first argument of ts() call is no string.", 'warn', $file, $node->getLine());
       return;
     }
 
     // set the string
     $pot_entry['msgid'] = $node->args[0]->value->value;
 
-
     // process the arguments
     if (isset($node->args[1])) {
       if (get_class($node->args[1]->value) != 'PhpParser\Node\Expr\Array_') {
         $this->reportError("second argument of ts() call is not an array.", 'warn', $file, $node->getLine());
-      } else {
+      }
+      else {
         foreach ($node->args[1]->value->items as &$ts_argument) {
           switch ($ts_argument->key->value) {
             case 'plural':
@@ -111,7 +116,7 @@ class PhpTreeParser implements ParserInterface {
             case 'context':
               $pot_entry['msgctxt'] = $ts_argument->value->value;
               break;
-            
+
             default:
             case 'domain':
             case 'count':
@@ -128,16 +133,19 @@ class PhpTreeParser implements ParserInterface {
   /**
    * Simple wrapper to report error messages
    *
-   * @param string message    the error message
-   * @param string level      severity, on of 'error', 'warn', 'info'
-   * @param string reference  location of the error, e.g. the file
+   * @param string $message the error message
+   * @param string $level severity, on of 'error', 'warn', 'info'
+   * @param string $file reference location of the error, e.g. the file
+   * @param string $line Line where the error appeared
    */
   protected function reportError($message, $level = 'error', $file = NULL, $line = 'n/a') {
     // TODO: find proper sink for error messages
     if ($file) {
       fwrite(STDERR, "[$level] $message ($file:$line)\n");
-    } else {
+    }
+    else {
       fwrite(STDERR, "[$level] $message\n");
     }
   }
+
 }

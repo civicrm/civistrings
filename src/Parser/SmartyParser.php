@@ -57,7 +57,7 @@ class SmartyParser implements ParserInterface {
    *
    * @param string $file
    * @param string $content
-   * @param Pot $pot
+   * @param \Civi\Strings\Pot $pot
    * @throws \Exception
    */
   public function parse($file, $content, Pot $pot) {

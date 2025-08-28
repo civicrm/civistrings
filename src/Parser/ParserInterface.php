@@ -1,5 +1,6 @@
 <?php
 namespace Civi\Strings\Parser;
+
 use Civi\Strings\Pot;
 
 interface ParserInterface {
@@ -9,7 +10,7 @@ interface ParserInterface {
    *
    * @param string $file
    * @param string $content
-   * @param Pot $pot
+   * @param \Civi\Strings\Pot $pot
    */
   public function parse($file, $content, Pot $pot);
 
