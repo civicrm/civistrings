@@ -16,7 +16,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Civi\\Strings\\": "src/"
+            "Civi\\Strings\\": "src/",
+            "Civi\\": "extern/Civi/"
+         },
+         "psr-0": {
+           "CRM_": "extern/"
          }
     },
     "bin": [
