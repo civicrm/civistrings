@@ -99,11 +99,21 @@ class PhpTreeParser implements ParserInterface {
 
     // process the arguments
     if (isset($node->args[1])) {
-      if (get_class($node->args[1]->value) != 'PhpParser\Node\Expr\Array_') {
+      // If we pass an array variable to ts, it will be detected as a Variable
+      // in most cases that's OK, as long as it does not include plural/context/escape, etc
+      if (get_class($node->args[1]->value) == 'PhpParser\Node\Expr\Variable') {
+        // do nothing
+        $this->reportError("second argument of ts() call is not an array syntax. It might be a variable (this parser analyses the syntax, it does not evaluate the code). This is usually fine, as long as the variable does not include the the domain or plural placeholders. If that is the case, then the parser will not be able to generate the expected output.", 'info', $file, $node->getLine());
+      }
+      elseif (get_class($node->args[1]->value) != 'PhpParser\Node\Expr\Array_') {
         $this->reportError("second argument of ts() call is not an array.", 'warn', $file, $node->getLine());
       }
       else {
         foreach ($node->args[1]->value->items as &$ts_argument) {
+          if (empty($ts_argument->key->value)) {
+            $this->reportError("ts() arguments might be missing explicit array keys.", 'warn', $file, $node->getLine());
+            break;
+          }
           switch ($ts_argument->key->value) {
             case 'plural':
               // FIXME: Is this really correct or just a workaround? (copied from old implementation)
