@@ -88,6 +88,9 @@ class ExtractCommand extends Command {
       if ($input->getOption('header')) {
         $output->write(file_get_contents($input->getOption('header')));
       }
+      // Write out header entry with a charset
+      $output->write("msgid \"\"\nmsgstr \"\"\n\"Content-Type: text/plain; charset=UTF-8\\n\"\n\n");
+
       $output->write($this->pot->toString($input));
     }
     else {
@@ -105,6 +108,9 @@ class ExtractCommand extends Command {
           $content .= file_get_contents($input->getOption('header'));
         }
       }
+      // Write out header entry with a charset
+      $output->write("msgid \"\"\nmsgstr \"\"\n\"Content-Type: text/plain; charset=UTF-8\\n\"\n\n");
+
       $content .= $this->pot->toString($input);
       file_put_contents($input->getOption('out'), $content, $input->getOption('append') ? FILE_APPEND : 0);
       $progress->finish();
