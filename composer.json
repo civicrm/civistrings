@@ -3,6 +3,7 @@
     "description": "String extractor for CiviCRM",
     "license": "GPL-2+",
     "require": {
+        "civicrm/composer-downloads-plugin": "~2.1|^3",
         "php": ">=7.4.0",
         "symfony/console": "~5.4",
         "nikic/php-parser": "~4.13",
@@ -30,6 +31,20 @@
         "platform": {
             "php": "7.4.0"
         },
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "civicrm/composer-downloads-plugin": true,
+        "allow-plugins": {
+            "civicrm/composer-downloads-plugin": true
+        }
+    },
+    "extra": {
+        "downloads": {
+            "StringVisitor": {
+                "version": "6.9",
+                "url": "https://raw.githubusercontent.com/civicrm/civicrm-core/{$version}/ext/afform/core/Civi/Afform/StringVisitor.php",
+                "path": "extern/Civi/Afform/StringVisitor.php",
+                "type": "file"
+            }
+        }
     }
 }
