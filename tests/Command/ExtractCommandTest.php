@@ -8,6 +8,8 @@ class ExtractCommandTest extends \PHPUnit\Framework\TestCase {
 
   const COMMAND = 'civistrings';
 
+  const DEFAULT_HEADER = "msgid \"\"\nmsgstr \"\"\n\"Content-Type: text/plain; charset=UTF-8\\n\"\n\n";
+
   protected $tmpFile = NULL;
 
   public function examples() {
@@ -42,8 +44,9 @@ class ExtractCommandTest extends \PHPUnit\Framework\TestCase {
     $commandTester->execute(array(
       'command' => self::COMMAND,
       'files' => $inputFiles,
+      '--default-header' => TRUE,
     ));
-    $expectedOutput = file_get_contents($expectedOutputFile);
+    $expectedOutput = static::DEFAULT_HEADER . file_get_contents($expectedOutputFile);
     $this->assertEquals($expectedOutput, $commandTester->getDisplay());
   }
 
@@ -96,8 +99,9 @@ class ExtractCommandTest extends \PHPUnit\Framework\TestCase {
     $commandTester->execute(array(
       'command' => self::COMMAND,
       'files' => array("-", "examples/ex4.module", "examples/ex4.js", "examples/ex4.cmd2", "examples/ex4.txt"),
+      '--default-header' => TRUE,
     ));
-    $expectedOutput = file_get_contents("examples/ex4.pot");
+    $expectedOutput = static::DEFAULT_HEADER . file_get_contents("examples/ex4.pot");
     $this->assertEquals($expectedOutput, $commandTester->getDisplay());
 
     fclose($fh);

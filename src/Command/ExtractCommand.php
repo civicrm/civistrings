@@ -47,9 +47,11 @@ class ExtractCommand extends Command {
       ->setDescription('Extract strings')
       ->setHelp('Extract strings from any mix of PHP, Smarty, JS, HTML files.')
       ->addArgument('files', InputArgument::IS_ARRAY, 'Files from which to extract strings. Use "-" to accept file names from STDIN')
-      ->addOption('append', 'a', InputOption::VALUE_NONE, 'Append to file. (Use with --out)')
+      ->addOption('append', 'a', InputOption::VALUE_NONE, 'Append to file. (Use with --out. Implies --no-header.)')
       ->addOption('base', 'b', InputOption::VALUE_REQUIRED, 'Base directory name (for constructing relative paths)', realpath(getcwd()))
       ->addOption('header', NULL, InputOption::VALUE_REQUIRED, 'Header file to prepend to output.')
+      ->addOption('no-header', 'N', InputOption::VALUE_NONE, 'Do not output any header.')
+      ->addOption('default-header', 'H', InputOption::VALUE_NONE, 'Generate a default header')
       ->addOption('msgctxt', NULL, InputOption::VALUE_REQUIRED, 'Set default msgctxt for all strings')
       ->addOption('out', 'o', InputOption::VALUE_REQUIRED, 'Output file. (Default: stdout)');
   }
@@ -81,16 +83,28 @@ class ExtractCommand extends Command {
 
     $actualFiles = $this->findFiles($files);
 
+    if ($input->getOption('no-header') || $input->getOption('append')) {
+      $header = NULL;
+    }
+    elseif ($input->getOption('header')) {
+      $header = file_get_contents($input->getOption('header'));
+    }
+    elseif ($input->getOption('default-header')) {
+      $header = "msgid \"\"\nmsgstr \"\"\n\"Content-Type: text/plain; charset=UTF-8\\n\"\n\n";
+    }
+    else {
+      $error = is_callable([$output, 'getErrorOutput']) ? $output->getErrorOutput() : $output;
+      $error->writeln("<error>WARNING</error>: Please specify a header option, such as <info>-H</info> (<info>--default-header</info>) or <info>-N</info> (<info>--no-header</info>) or <info>--header=FILE</info>.");
+      $header = NULL;
+    }
+
     if (!$input->getOption('out')) {
       foreach ($actualFiles as $file) {
         $this->extractFile($file);
       }
-      if ($input->getOption('header')) {
-        $output->write(file_get_contents($input->getOption('header')));
+      if ($header !== NULL) {
+        $output->write($header);
       }
-      // Write out header entry with a charset
-      $output->write("msgid \"\"\nmsgstr \"\"\n\"Content-Type: text/plain; charset=UTF-8\\n\"\n\n");
-
       $output->write($this->pot->toString($input));
     }
     else {
@@ -103,13 +117,9 @@ class ExtractCommand extends Command {
       }
       $content = '';
       ## If header is supplied and if we're starting a new file.
-      if ($input->getOption('header')) {
-        if (!file_exists($input->getOption('out')) || !$input->getOption('append')) {
-          $content .= file_get_contents($input->getOption('header'));
-        }
+      if ($header !== NULL && !file_exists($input->getOption('out'))) {
+        $content .= file_get_contents($input->getOption('header'));
       }
-      // Write out header entry with a charset
-      $output->write("msgid \"\"\nmsgstr \"\"\n\"Content-Type: text/plain; charset=UTF-8\\n\"\n\n");
 
       $content .= $this->pot->toString($input);
       file_put_contents($input->getOption('out'), $content, $input->getOption('append') ? FILE_APPEND : 0);
