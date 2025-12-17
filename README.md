@@ -49,14 +49,24 @@ civistrings -o myfile.pot myfolder
 find -name '*.js' | civistrings - -o myfile.pot
 ```
 
-## Development and Testing
+## Development
 
-The "examples" folder includes a series of example input files and expected
-output files.  To see if the examples are correctly processed, simply run
-`phpunit`.
+For a full set of development and testing activities, you will need:
 
-If you need to add new examples or change the behavior of the test, update
-`tests/Command/ExtractCommandTest.php`.
+* [`git`](https://git-scm.com)
+* [`composer`](https://getcomposer.org/)
+* [`box`](http://box-project.github.io/box2/)
+* [`phpunit`](https://phpunit.de/)
+
+> __TIP__: If you use `nix-shell`, it will provide `php`, `git`, `composer`,
+> `box`, `phpunit8`, and `phpunit9`.
+
+### Testing
+
+Tests are based on a series of example files (e.g. `./examples/ex1.php` and
+the corresponding `./examples/ex1.pot`).
+
+To run the tests, simply call your favorite instance of `phpunit`.
 
 ### Build
 

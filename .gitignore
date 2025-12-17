@@ -1,5 +1,6 @@
 *~
 .idea/
+extern/
 vendor/
 bin/phpunit
 bin/civistrings.phar
