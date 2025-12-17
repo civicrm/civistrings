@@ -26,8 +26,5 @@
             "php": "7.4.0"
         },
         "bin-dir": "bin"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "9.6.*"
     }
 }
