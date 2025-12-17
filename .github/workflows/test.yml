@@ -1,0 +1,29 @@
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+name: Test
+
+jobs:
+  build:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        include:
+          - operating-system: ubuntu-latest
+            php: 7.4
+            phpunit: 8
+          - operating-system: ubuntu-latest
+            php: 8.4
+            phpunit: 9
+    name: PHP ${{ matrix.php }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: php-actions/composer@v6
+      - uses: php-actions/phpunit@v3
+        with:
+          configuration: phpunit.xml.dist
+          version: ${{ matrix.phpunit }}
+          php_version:  ${{ matrix.php }}
