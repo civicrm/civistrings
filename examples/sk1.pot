@@ -1,0 +1,36 @@
+#: examples/sk1.mgd.php
+msgid "Queues (SavedSearch label with ts)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "Queues Table (SearchDisplay label with ts)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "System Queue ID (label)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "Name (label)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "Status (label)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "Created By (label)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "View Queue Contact (title)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "View Queue (text)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "Add Queue (text)"
+msgstr ""
+
