@@ -46,3 +46,15 @@ msgstr ""
 msgid "Mixed \"quote\" 'marks'"
 msgstr ""
 
+#: examples/ex2.js
+msgid "Singular"
+msgid_plural "Plurals %count"
+msgstr[0] ""
+msgstr[1] ""
+
+#: examples/ex2.js
+msgid "Singular %1"
+msgid_plural "Plurals %1 %count"
+msgstr[0] ""
+msgstr[1] ""
+
