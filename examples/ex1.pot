@@ -53,6 +53,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: examples/ex1.php
+msgid "Inline plural test"
+msgid_plural "%count tests"
+msgstr[0] ""
+msgstr[1] ""
+
+#: examples/ex1.php
 msgid "a test for multitoken element value"
 msgstr ""
 

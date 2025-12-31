@@ -29,11 +29,12 @@ $s2 = ts('%3 – a plural test, %count frog', array(
   "plural" => 'a plural test, %count frogs',
   3 => 'three'
 ));
+$s3 = ts('Inline plural test', ['plural' => '%count tests']);
 //$s3 = ts('a test – no count', array('plural' => 'No count here'));
 //$s4 = ts('a test – no plural', array('count' => 42));
 $s5 = ts('a test for multitoken element value', array(1 => $c . $d));
 $t1 = ts("This is some text with context", array('context' => 'testcontext'));
-$t2 = ts("This is some text with %1 context", array('context' => 'other_context', 1 => 'more'));
+$t2 = ts("This is some text with %1 context", ['context' => 'other_context', 1 => 'more']);
 $t3 = ts("This is some text %1 context", array(1 => 'with even more', 'context' => 'testcontext'));
 
 $ext1 = E::ts('The string from the extension');

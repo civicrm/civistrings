@@ -64,23 +64,43 @@ class JsParser implements ParserInterface {
       return;
     }
 
-    // Match all calls to ts()
-    // Note: \s also matches newlines with the 's' modifier.
+    // TODO: This regex is duplicated in `CRM_Utils_JS::parseStrings`
+    // Match all calls to ts() including an optional second argument
     preg_match_all('~
       [^\w]ts\s*                                    # match "ts" with whitespace
       \(\s*                                         # match "(" argument list start
-      ((?:(?:\'(?:\\\\\'|[^\'])*\'|"(?:\\\\"|[^"])*")(?:\s*\+\s*)?)+)\s*
+      ((?:(?:\'(?:\\\\\'|[^\'])*\'|"(?:\\\\"|[^"])*")(?:\s*\+\s*)?)+)\s*    # first argument
+      (?:,\s*                                       # optional second argument start
+        \{[^}]*                                     # object literal start
+        plural[\'"]?\s*:\s*                         # plural key
+        (\'(?:\\\\\'|[^\'])*\'|"(?:\\\\"|[^"])*")   # plural string value
+        [^}]*\}                                     # object literal end
+      )?\s*
       [,\)]                                         # match ")" or "," to finish
       ~sx', $content, $matches);
-    foreach ($matches[1] as $text) {
+
+    foreach ($matches[1] as $index => $text) {
       if ($text = self::fs($text)) {
-        $pot->add(array(
+        $entry = [
           'file' => $file,
           'msgid' => stripcslashes($text),
-          'msgstr' => '',
-        ));
+        ];
+
+        // If we have a plural form (second argument matched)
+        if (!empty($matches[2][$index])) {
+          $plural = self::fs($matches[2][$index]);
+          $entry['msgid_plural'] = stripcslashes($plural);
+          // PhpTreeParser outputs 2 blank msgstrs for plurals. TODO: Why?
+          $entry['msgstr[0]'] = '';
+          $entry['msgstr[1]'] = '';
+        }
+        else {
+          // PhpTreeParser outputs blank msgstr so we do that here too. TODO: Why?
+          $entry['msgstr'] = '';
+        }
+
+        $pot->add($entry);
       }
     }
   }
-
 }
