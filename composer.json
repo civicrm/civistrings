@@ -40,7 +40,7 @@
     "extra": {
         "downloads": {
             "StringVisitor": {
-                "version": "6.9",
+                "version": "6.11",
                 "url": "https://raw.githubusercontent.com/civicrm/civicrm-core/{$version}/ext/afform/core/Civi/Afform/StringVisitor.php",
                 "path": "extern/Civi/Afform/StringVisitor.php",
                 "type": "file"
