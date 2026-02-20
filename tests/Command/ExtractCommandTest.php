@@ -20,6 +20,7 @@ class ExtractCommandTest extends \PHPUnit\Framework\TestCase {
     $cases[] = array(array("examples/ex3.tpl"), "examples/ex3.pot");
     $cases[] = array(array("examples/ex4.cmd", "examples/ex4.hlp", "examples/ex4.install", "examples/ex4.module", "examples/ex4.tpl", "examples/ex4.js", "examples/ex4.cmd2", "examples/ex4.txt"), "examples/ex4.pot");
     $cases[] = array(array("examples/ex5.html"), "examples/ex5.pot");
+    $cases[] = array(array("examples/ex6.html"), "examples/ex6.pot");
     $cases[] = array(array("examples/Event.setting.php"), "examples/event.setting.pot");
 
     return $cases;

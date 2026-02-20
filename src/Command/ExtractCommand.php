@@ -2,6 +2,7 @@
 namespace Civi\Strings\Command;
 
 use Civi\Strings\Parser\JsParser;
+use Civi\Strings\Parser\HtmlParser;
 use Civi\Strings\Parser\PhpTreeParser;
 use Civi\Strings\Parser\SmartyParser;
 use Civi\Strings\Parser\SettingParser;
@@ -59,7 +60,7 @@ class ExtractCommand extends Command {
   protected function initialize(InputInterface $input, OutputInterface $output) {
     $this->parsers = array();
     $this->parsers['js'] = new JsParser();
-    $this->parsers['html'] = new JsParser();
+    $this->parsers['html'] = new HtmlParser();
     $this->parsers['php'] = new PhpTreeParser();
     $this->parsers['smarty'] = new SmartyParser($this->parsers['php']);
     $this->parsers['setting'] = new SettingParser();
