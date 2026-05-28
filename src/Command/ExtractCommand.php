@@ -5,6 +5,7 @@ use Civi\Strings\Parser\JsParser;
 use Civi\Strings\Parser\PhpTreeParser;
 use Civi\Strings\Parser\SmartyParser;
 use Civi\Strings\Parser\SettingParser;
+use Civi\Strings\Parser\MgdPhpParser;
 use Civi\Strings\Pot;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -60,6 +61,7 @@ class ExtractCommand extends Command {
     $this->parsers = array();
     $this->parsers['js'] = new JsParser();
     $this->parsers['html'] = new JsParser();
+    $this->parsers['managed'] = new MgdPhpParser();
     $this->parsers['php'] = new PhpTreeParser();
     $this->parsers['smarty'] = new SmartyParser($this->parsers['php']);
     $this->parsers['setting'] = new SettingParser();
@@ -203,6 +205,9 @@ class ExtractCommand extends Command {
     }
     elseif (preg_match('/\.(tpl|hlp)$/', $file)) {
       $parser = 'smarty';
+    }
+    elseif (preg_match('/\.mgd\.php$/', $file)) {
+      $parser = 'managed';
     }
     elseif (preg_match('/\.php$/', $file) || preg_match(':^<\?php:', $content) || preg_match(':^#![^\n]+php:', $content)) {
       $parser = 'php';
