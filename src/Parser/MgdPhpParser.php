@@ -11,6 +11,7 @@ class MgdPhpParser extends PhpTreeParser implements ParserInterface {
 
   /**
    * On top of regular ts parsing, auto-add strings that are assumed to be multilingual
+   * similar to ext/search_kit/Civi/Search/Translator.php::updateSearchDisplaySources
    *
    * @param string $file
    * @param string $content
@@ -26,7 +27,7 @@ class MgdPhpParser extends PhpTreeParser implements ParserInterface {
       $stmts = $parser->parse($code);
       $this->extractStrings($stmts, $pot, $file);
 
-      $keys = ['label', 'title', 'text'];
+      $keys = ['label', 'title', 'description', 'text', 'empty_value', 'rewrite'];
       $this->extractMgdStrings($stmts, $keys, $pot, $file);
     }
     catch (\PhpParser\Error $e) {
@@ -35,7 +36,11 @@ class MgdPhpParser extends PhpTreeParser implements ParserInterface {
 
   }
 
-  protected function extractMgdStrings($node, array $keys, Pot $pot, &$file) {
+  /**
+   * Extract string from mgd by going through the array recursively
+   * Similar to ext/search_kit/Civi/Search/Translator.php::extractStrings
+   */
+  protected function extractMgdStrings($node, array $keys, Pot $pot, string &$file) {
     if (is_array($node)) {
       foreach ($node as &$single_node) {
         $this->extractMgdStrings($single_node, $keys, $pot, $file);
@@ -66,8 +71,17 @@ class MgdPhpParser extends PhpTreeParser implements ParserInterface {
     }
   }
 
-  protected function isWorthy($value): bool {
-    return !empty($value);
+  /**
+   * Taken from ext/search_kit/Civi/Search/Translator.php::isWorthy
+   */
+  protected function isWorthy(?string $value): bool {
+    return !empty($value)
+      // ignore value with smarty
+      && !(str_contains($value, '{') && str_contains($value, '}'))
+      // ignore value with custom translation
+      && (!str_contains($value, 'ts('))
+      // ignore value that are a simple field token
+      && !preg_match('/^\[[A-Za-z0-9._-]+\]$/', trim($value));
   }
 
 }

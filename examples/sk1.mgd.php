@@ -52,23 +52,25 @@ return [
           'placeholder' => 5,
           'columns' => [
             [
-              'type' => 'field',
+              'type' => 'html',
               'key' => 'id',
               'label' => 'System Queue ID (label)',
               'sortable' => TRUE,
+              'rewrite' => 'This should be extracted despite containing <b>html</b> (rewrite)'
             ],
             [
               'type' => 'field',
               'key' => 'name',
               'label' => 'Name (label)',
               'sortable' => TRUE,
+              'empty_value' => '(empty_value)'
             ],
             [
               'type' => 'field',
               'key' => 'status:label',
               'label' => 'Status (label)',
               'sortable' => TRUE,
-              'rewrite' => '',
+              'rewrite' => '[status:label] rewrite',
               'editable' => TRUE,
             ],
             [

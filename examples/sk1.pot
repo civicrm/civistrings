@@ -11,11 +11,23 @@ msgid "System Queue ID (label)"
 msgstr ""
 
 #: examples/sk1.mgd.php
+msgid "This should be extracted despite containing <b>html</b> (rewrite)"
+msgstr ""
+
+#: examples/sk1.mgd.php
 msgid "Name (label)"
 msgstr ""
 
 #: examples/sk1.mgd.php
+msgid "(empty_value)"
+msgstr ""
+
+#: examples/sk1.mgd.php
 msgid "Status (label)"
+msgstr ""
+
+#: examples/sk1.mgd.php
+msgid "[status:label] rewrite"
 msgstr ""
 
 #: examples/sk1.mgd.php
