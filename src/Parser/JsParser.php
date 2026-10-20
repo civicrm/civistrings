@@ -41,12 +41,12 @@ class JsParser implements ParserInterface {
    */
   public static function fs($text) {
     $quote = $text[0];
+    // Remove end quotes first, so an escaped quote at either end stays in the text
+    $text = substr($text, 1, -1);
     // Remove newlines
     $text = str_replace("\\\n", '', $text);
     // Unescape escaped quotes
     $text = str_replace('\\' . $quote, $quote, $text);
-    // Remove end quotes
-    $text = substr(ltrim($text, $quote), 0, -1);
     // Escape double quotes
     $text = str_replace('"', '\"', $text);
     return $text;

@@ -2,5 +2,7 @@
 alert(ts(`Hello world`));
 n(ts(`Don't say "%1"`,{1:e}),ts(`One \`thing\``,{domain:`myext`}));
 E.ts(`%1 contact`,{1:n,count:n,plural:`%1 contacts`});
+// A leading escaped quote belongs to the text
+ts('\'Quoted\' first'); ts("\"Quoted\" first"); ts(`\`Quoted\` first`);
 // A template with a placeholder is not a constant
 alert(ts(`Hello ${name}`));
