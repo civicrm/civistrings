@@ -41,12 +41,12 @@ class JsParser implements ParserInterface {
    */
   public static function fs($text) {
     $quote = $text[0];
+    // Remove end quotes first, so an escaped quote at either end stays in the text
+    $text = substr($text, 1, -1);
     // Remove newlines
     $text = str_replace("\\\n", '', $text);
     // Unescape escaped quotes
     $text = str_replace('\\' . $quote, $quote, $text);
-    // Remove end quotes
-    $text = substr(ltrim($text, $quote), 0, -1);
     // Escape double quotes
     $text = str_replace('"', '\"', $text);
     return $text;
@@ -65,15 +65,16 @@ class JsParser implements ParserInterface {
     }
 
     // TODO: This regex is duplicated in `CRM_Utils_JS::parseStrings`
-    // Match all calls to ts() including an optional second argument
+    // Match all calls to ts() including an optional second argument.
+    // Template literals count when they hold no ${} placeholder: minifiers write every string that way.
     preg_match_all('~
       [^\w]ts\s*                                    # match "ts" with whitespace
       \(\s*                                         # match "(" argument list start
-      ((?:(?:\'(?:\\\\\'|[^\'])*\'|"(?:\\\\"|[^"])*")(?:\s*\+\s*)?)+)\s*    # first argument
+      ((?:(?:\'(?:\\\\\'|[^\'])*\'|"(?:\\\\"|[^"])*"|`(?:\\\\`|\$(?!\{)|[^`$])*`)(?:\s*\+\s*)?)+)\s*    # first argument
       (?:,\s*                                       # optional second argument start
         \{[^}]*                                     # object literal start
         plural[\'"]?\s*:\s*                         # plural key
-        (\'(?:\\\\\'|[^\'])*\'|"(?:\\\\"|[^"])*")   # plural string value
+        (\'(?:\\\\\'|[^\'])*\'|"(?:\\\\"|[^"])*"|`(?:\\\\`|\$(?!\{)|[^`$])*`)   # plural string value
         [^}]*\}                                     # object literal end
       )?\s*
       [,\)]                                         # match ")" or "," to finish

@@ -1,0 +1,30 @@
+#: examples/ex6.js
+msgid "Hello world"
+msgstr ""
+
+#: examples/ex6.js
+msgid "Don't say \"%1\""
+msgstr ""
+
+#: examples/ex6.js
+msgid "One `thing`"
+msgstr ""
+
+#: examples/ex6.js
+msgid "%1 contact"
+msgid_plural "%1 contacts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: examples/ex6.js
+msgid "'Quoted' first"
+msgstr ""
+
+#: examples/ex6.js
+msgid "\"Quoted\" first"
+msgstr ""
+
+#: examples/ex6.js
+msgid "`Quoted` first"
+msgstr ""
+
