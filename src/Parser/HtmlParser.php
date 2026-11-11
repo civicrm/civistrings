@@ -19,10 +19,9 @@ class HtmlParser extends JsParser implements ParserInterface {
       return;
     }
 
-    $form = [];
     $doc = \phpQuery::newDocument($content, 'text/html');
 
-    (new StringVisitor())->visit($form, $doc, function ($string) use ($pot, $file) {
+    (new StringVisitor())->visit($doc, function ($string) use ($pot, $file) {
       $pot->add([
         'file' => $file,
         'msgid' => stripcslashes($string),
