@@ -46,6 +46,12 @@ return [
         'type' => 'table',
         'settings' => [
           'description' => NULL,
+          'noResultsText' => 'No queues found (noResultsText)',
+          'button' => 'Search queues (button)',
+          'editableRow' => [
+            'create' => TRUE,
+            'createLabel' => 'Add a queue (createLabel)',
+          ],
           'sort' => [],
           'limit' => 50,
           'pager' => [],
@@ -86,6 +92,14 @@ return [
                 'target' => '_blank',
               ],
               'title' => 'View Queue Contact (title)',
+            ],
+            [
+              'type' => 'image',
+              'key' => 'name',
+              'image' => [
+                'src' => '[name]',
+                'alt' => 'Queue icon (alt)',
+              ],
             ],
             [
               'size' => 'btn-xs',

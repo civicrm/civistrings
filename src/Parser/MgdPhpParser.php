@@ -27,7 +27,7 @@ class MgdPhpParser extends PhpTreeParser implements ParserInterface {
       $stmts = $parser->parse($code);
       $this->extractStrings($stmts, $pot, $file);
 
-      $keys = ['label', 'title', 'description', 'text', 'empty_value', 'rewrite'];
+      $keys = ['label', 'title', 'description', 'text', 'empty_value', 'rewrite', 'noResultsText', 'button', 'createLabel', 'alt'];
       $this->extractMgdStrings($stmts, $keys, $pot, $file);
     }
     catch (\PhpParser\Error $e) {
